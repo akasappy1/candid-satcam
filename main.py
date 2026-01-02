@@ -1,5 +1,6 @@
 from geocode import get_long_lat
 from is_visible import is_visibility_ok
+from get_wrs_path import find_wrs_path, get_revisit_day
 
 
 print("Hello! You can use this program to see whether you're on candida (Landsat) camera today!")
@@ -16,5 +17,11 @@ while True:
         if geocoded_addr:
             area_viz = is_visibility_ok(geocoded_addr[0], geocoded_addr[1], geocoded_addr[2])
             print(f"Satellites could see you today: {area_viz}")
+            if area_viz == True:
+                user_path, user_row = find_wrs_path(geocoded_addr[0], geocoded_addr[1])
+                print(f"Your WRS Path number(s): {user_path}")
+                print(f"Your WRS Row number(s): {user_row}")
+                user_revisits= get_revisit_day(user_path)
+                print(f"Your revisit cycle day(s): {user_revisits}")
 
 
